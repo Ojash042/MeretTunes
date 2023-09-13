@@ -1,0 +1,29 @@
+
+
+@{
+    ViewBag.Title = "Create Songs";
+    Layout = "_Layout";
+}
+
+<div class="container w-100 h-100">
+    <div class="d-flex row justify-content-center align-items-center">
+        <div class="col-xl-9">
+            <div class="d-inline-flex"><label class="text-danger">@ViewBag.Error</label></div>
+            <form class="form-outline" asp-controller="Cms" asp-action="CreateSongPost" method="post" enctype="multipart/form-data">
+                <div class="d-inline-flex form-outline ms-lg-4 my-4 align-items-center w-100">
+                    <label for="songName" class="form-label pe-3 col-3">Song Name: </label>
+                    <input type="text" id="songName" class="form-control form-control-lg col rounded-pill text-white text-center bg-dark" name="songName" required/>
+                </div>
+                <div class="d-inline-flex form-outline ms-lg-4 my-4 align-items-center w-100">
+                    <label for="albumGuid" class="form-label pe-3 col-3">Album Guid: </label>
+                    <input type="text" id="albumGuid" class="form-control form-control-lg col rounded-pill text-white text-center bg-dark" name="albumGuid" required/>
+                </div>
+                <div class="d-flex form-outline ms-lg-4 my-4 align-items-center w-100">
+                    <label class="form-label bg-dark" for="SongFiles">Song Files To Import</label>
+                    <input type="file" class="form-control bg-dark text-white" accept="audio/mpeg" id="SongFiles" name="songFile"/>
+                </div>
+                <button type="submit" class="btn btn-secondary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

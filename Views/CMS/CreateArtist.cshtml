@@ -1,0 +1,25 @@
+@model Artist
+@{
+    ViewBag.Title = "Title";
+    Layout = "_Layout";
+}
+<div class="container w-100 h-100">
+    <div class="d-flex row justify-content-center align-items-center">
+        <div class="col-xl-9">
+            <form class="form-outline" asp-controller="Cms" asp-action="CreateArtistPost" enctype="multipart/form-data">
+                <div class="d-flex form-outline mb-5 ms-5 mt-5 row me-auto justify-content-center w-100">
+                    <img class="mb-5 mt-3" style="height: 288px; width: 288px;" onclick="accountControlProfileImageContainer()" class="border-1 border-secondary" id="account-controls-profile-image" alt="Create an artist Page"/>
+                    <input type="file" style="display: none" accept="image/png, image/jpeg" onchange="handleFiles(this.files)" id="imageInput" name="imageFile"/>
+                    <input type="text" class="d-inline-flex text-center text-white border-bottom-2 p-0 ms-0 me-0 border-white border-0 border-bottom bg-dark w-100 mt-2 p-0" style="font-size: 24px;" name="artistName" required/>
+                </div>
+                <hr class="ms-xl-5 mx-lg-1" style="height: 3px;"/>
+                
+                <div class="d-inline-flex form-outline ms-lg-4 my-4 align-items-center w-100">
+                    <label asp-for="Description" class="form-label pe-3 col-3">Description:</label>
+                    <textarea rows = "3" col="8" id="Description" class="form-control form-control-lg col rounded-pill text-white text-center bg-dark" name="description" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-outline-secondary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

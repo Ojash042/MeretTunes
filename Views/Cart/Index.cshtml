@@ -1,0 +1,56 @@
+@model List<Album>
+@{
+    ViewData["Title"] = "Cart";
+    Layout = "_Layout";
+    int counter = 0;
+    int totalPrice = 0;
+}
+
+<div class="container w-100 h-100">
+    <table class="table">
+        <thead>
+        <tr class="text-white">
+            <th scope="row">S.No</th>
+            <th scope="col">Album Image</th>
+            <th scope="col">Album Name</th>
+            <th scope="col">Album Price</th>
+            <th scope="col">Remove</th>
+        </tr>
+        </thead>
+        @{
+            foreach (var album in Model) {
+                counter++;
+                totalPrice += album.AlbumPrice;
+                <tr class="text-white">
+                    <td>@counter</td>
+                    <td><img src="@($"/albumImages/{album.AlbumCover}")" width="124" height="124"></td>
+                    <td>@album.AlbumName</td>
+                    <td>@album.AlbumPrice</td>
+                    <td>
+                        <form class="form-outline" method="post" asp-controller="Cart" asp-action="RemoveFromCart">
+                            <input type="hidden" value="@album.AlbumId" name="albumGuid">
+                            <button type="submit" class="btn btn-outline-secondary">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    <div class="flex-fill align-items-right">
+        <label class="fw-bold">Total: @totalPrice</label>
+        <form action="https://uat.esewa.com.np/epay/main" method="post">
+            <input value="@(totalPrice+ (totalPrice>100?100:0))" name="tAmt" type="hidden">
+            <input value="@totalPrice" name="amt" type="hidden">
+            <input value="@(totalPrice>0?100:0)" name="txAmt" type="hidden">
+            <input value="0" name="psc" type="hidden">
+            <input value="0" name="pdc" type="hidden">
+            <input value="EPAYTEST" name="scd" type="hidden">
+            <input value="@(Guid.NewGuid())" name="pid" type="hidden">
+            <input value="http://localhost:5103/Cart/Transfer" type="hidden" name="su">
+            <input value="http://merchant.com.np/page/esewa_payment_failed?q=fu" type="hidden" name="fu">
+            <input value="Pay with Esewa" type="submit" class="text-white btn-outline-light px-3 mx-3 rounded-pill" style="background-color: limegreen">
+        </form>
+    </div>
+</div>
+
+

@@ -1,0 +1,69 @@
+@using MeretTune.ViewModels
+@model SiteMetrics
+@{
+    ViewBag.Title = "Content Management System";
+    Layout = "_Layout";
+}
+<div class="container">
+    <div class=" row">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">No. Of Artist <span class="fa-solid fa-guitar"></span></div>
+                <div class="card-body">
+                    <h3>@Model.ArtistCount</h3>
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-4">
+            <div class="card text-white bg-secondary mb-3">
+                <div class="card-header">No. Of Users <span class="fa-solid fa-users"></span></div>
+                <div class="card-body">
+                    <h3>@Model.UserCount</h3>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">No. Of Albums <span class="fa-solid fa-record-vinyl"></span></div>
+                <div class="card-body">
+                    <h3>@Model.AlbumCount</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class=" row">
+            <div class="col-md-4">
+                <div class="card text-white bg-danger mb-3">
+                    <div class="card-header">No. Of Songs <span class="fa-solid fa-music"></span></div>
+                    <div class="card-body">
+                        <h3>@Model.SongCount</h3>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-header">No. Of Albums Bought <span class="fa-solid fa-cart-shopping"></span></div>
+                    <div class="card-body">
+                        <h3>@Model.NoOfAlbumsBought</h3>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<h2>Choose an Activity</h2>
+<div class="container">
+    <ul class="list-group ">
+    <li class ="list-group-item" >
+        <a asp-controller="CMS" asp-action="CreateArtist" class="text-decoration-none text-white">Create a new Artist</a>
+    </li>
+    <li class="list-group-item">
+        <a asp-controller="CMS" asp-action="CreateSong" class="text-decoration-none text-white">Create a new Song</a>
+    </li>
+    <div class="list-group-item">
+        <a asp-controller="CMS" asp-action="CreateAlbumGet" class="text-white text-decoration-none">Create a new Album</a>
+    </div>
+    </ul>
+</div>

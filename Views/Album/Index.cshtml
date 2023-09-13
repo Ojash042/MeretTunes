@@ -1,0 +1,61 @@
+@using MeretTune.ViewModels
+@model AlbumArtistSong
+@{
+    ViewBag.Title = @Model.Album.AlbumName;
+    Layout = "_Layout";
+    bool flag = ViewBag.flag; 
+}
+<div class=" container w-100 h-100 align-items-center">
+    <h1 class="row-cols-lg-1">@Model.Album.AlbumName</h1>
+    <div class="flex-row align-items-center my-3 justify-content-center ms-xl-5">
+        <div class="col">
+            <img class="ms-xl-5 my-3" src="@($"/albumImages/{Model.Album.AlbumCover}")" style="width: 248px; height: 248px"/>
+        </div>
+        
+        <div class="col">
+        @{if (!flag) {
+            <form asp-controller="Cart" asp-action="AddToCart" class="form-control" method="post">
+                <input type="hidden" value="@Model.Album.AlbumId" name="albumGuid">
+                <label class="form-label">Price: @Model.Album.AlbumPrice</label>
+                <button class="btn btn-outline-secondary">Add To Cart</button>
+            </form>
+        }}     
+        </div>
+    </div>
+<table>
+    @foreach (var song in Model.Songs)
+    {
+        <tr class="my-5 py-5">
+            <td><h3>@song.SongName</h3></td>
+            <td>
+                <source src="@Url.Content($"/songs/{song.SongLocation}")" type="audio/mp3">
+            </td>
+            <td>
+                @{
+                    if (flag) {
+                        <button class="play-button" data-src="@Url.Content($"/songs/{song.SongLocation}")">Play</button>
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+</div>
+
+@section Scripts {
+    <script>
+    var currentAudio = null;
+        $(document).ready(function () {
+            $(".play-button").click(function () {
+                var audioSrc = $(this).data("src");
+                var audio = new Audio(audioSrc);
+                if (!audio.paused){
+                    audio.pause();
+                }
+                else{
+                    audio.play();
+                }
+            });
+        });
+    </script>
+}
